@@ -2,18 +2,31 @@ const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const generator = require("generate-password");
 const { Op } = require("sequelize");
-const { validateEmail } = require('../utils/validateEmail')
-const ForgotPasswordToken = require('../models/forgotPasswordToken.model')
-const { sendEmail,sendForgotPasswordEmail} = require("../utils/sendEmail");
+const { validateEmail } = require("../utils/validateEmail");
+const ForgotPasswordToken = require("../models/forgotPasswordToken.model");
+const { sendEmail, sendForgotPasswordEmail } = require("../utils/sendEmail");
 const APIError = require("../utils/APIError.js");
 const sequelize = require("sequelize");
-const status = require('http-status')
+const status = require("http-status");
+const { PublicKey } = require("@solana/web3.js");
 
 exports.register = async (req, res) => {
-  let { firstName, lastName, email, phone, country, city, gender, age, password, dob } =
-    req.body;
-  let profileImg = '';
-  if (req.file != undefined) { profileImg = req.file.path }
+  let {
+    walletAddress,
+    userName,
+    email,
+    phone,
+    country,
+    city,
+    gender,
+    age,
+    password,
+    dob,
+  } = req.body;
+  let profileImg = "";
+  if (req.file != undefined) {
+    profileImg = req.file.path;
+  }
   let sendMail = false;
   if (password == undefined) {
     password = generator.generate({
@@ -23,9 +36,15 @@ exports.register = async (req, res) => {
     sendMail = true;
   }
   try {
+    let pubkey = new PublicKey(walletAddress);
+    let isSolana = PublicKey.isOnCurve(pubkey.toBuffer());
+
+    if (!isSolana) {
+      res.json({ status: 400, msg: "Invalid Wallet Address" });
+    }
     const user = await User.create({
-      firstName,
-      lastName,
+      userName,
+      walletAddress,
       email,
       phone,
       country,
@@ -50,55 +69,33 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   try {
     req.body.phone = req.body.phone == undefined ? "" : req.body.phone;
     const user = await User.findOne({
       attributes: [
-        'id',
-        'phone',
-        'city',
-        'country',
-        'isActive',
-        'firstName',
-        'lastName',
-        'gender',
-        'age',
-        'dob',
-        'password',
-        'email',
-        'role',
-        'profileImg',
+        "id",
+        "userName",
+        "walletAddress",
+        "password",
+        "email",
+        "role",
+        "profileImg",
       ],
       where: {
-        [Op.or]: [
-          sequelize.where(sequelize.fn('lower', sequelize.col('email')),
-            sequelize.fn('lower', req.body.email)),
-          { phone: req.body.phone }]
+        userName: req.body.userName,
       },
     });
+    if (!user) {
+      return res.status(404).send({ message: "Incorrect Email Or Password!" });
+    }
+    var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
 
-    if (validateEmail(req.body.email)) {
-      if (!user) {
-        return res.status(404).send({ message: "Incorrect Email Or Password!" });
-      }
-      var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Incorrect Email Or Password!",
-        });
-      }
-    } else {
-      if (req.body.phone) {
-        if (!user) {
-          res.status(400).send({
-            message: "Wrong phone number :(",
-            phonenumber: req.body.phone,
-          })
-        }
-      }
+    if (!passwordIsValid) {
+      return res.status(401).send({
+        accessToken: null,
+        message: "Incorrect Email Or Password!",
+      });
     }
     var token = user.getJWTToken();
 
@@ -112,37 +109,34 @@ exports.login = async (req, res) => {
 };
 
 exports.forgotPassword = async (req, res, next) => {
-  const { email } = req.body
+  const { email } = req.body;
 
   const user = await User.findOne({
     where: {
       email,
     },
     include: [ForgotPasswordToken],
-  })
+  });
   if (!user)
     return next(
-      new APIError(
-        'No User found with the email address',
-        status.BAD_REQUEST
-      )
-    )
+      new APIError("No User found with the email address", status.BAD_REQUEST)
+    );
 
-  const token = await user.generateForgotPasswordToken(user.id, 2)
-  const subject = 'Forgot Password'
+  const token = await user.generateForgotPasswordToken(user.id, 2);
+  const subject = "Forgot Password";
 
   sendForgotPasswordEmail(user.email, subject, token);
 
   res.status(status.CREATED).json({
-    status: 'success',
+    status: "success",
     reset_token: token,
   });
-}
+};
 
 exports.resetPassword = async (req, res, next) => {
-  const { email, password, token } = req.body
+  const { email, password, token } = req.body;
 
-  const hashedToken = User.createHashFromString(token)
+  const hashedToken = User.createHashFromString(token);
 
   const user = await User.findOne({
     include: [
@@ -156,24 +150,24 @@ exports.resetPassword = async (req, res, next) => {
         },
       },
     ],
-  })
+  });
 
   if (!user)
     return next(
-      new APIError('Your session has been expired!', status.UNAUTHORIZED)
-    )
+      new APIError("Your session has been expired!", status.UNAUTHORIZED)
+    );
 
-  user.password = bcrypt.hashSync(password, 8)
-  await user.ForgotPasswordToken.destroy()
+  user.password = bcrypt.hashSync(password, 8);
+  await user.ForgotPasswordToken.destroy();
 
-  await user.save()
+  await user.save();
 
   res.status(status.OK).json({
-    status: 'success',
-  })
-}
+    status: "success",
+  });
+};
 
-exports.makeRangeIterator = async (req,res,next) => {
+exports.makeRangeIterator = async (req, res, next) => {
   try {
     const sequence = fibonacci();
     console.log(sequence.next().value); // 0
@@ -201,7 +195,7 @@ exports.makeRangeIterator = async (req,res,next) => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 // function makeRangeIterator(start = 0, end = Infinity, step = 1) {
 //   let nextIndex = start;
@@ -225,8 +219,8 @@ exports.makeRangeIterator = async (req,res,next) => {
 function* makeRangeIterator(start = 0, end = 100, step = 1) {
   let iterationCount = 0;
   for (let i = start; i < end; i += step) {
-      iterationCount++;
-      yield i;
+    iterationCount++;
+    yield i;
   }
   return iterationCount;
 }
@@ -238,8 +232,8 @@ function* fibonacci() {
     let reset = yield current;
     [current, next] = [next, next + current];
     if (reset) {
-        current = 0;
-        next = 1;
+      current = 0;
+      next = 1;
     }
   }
 }

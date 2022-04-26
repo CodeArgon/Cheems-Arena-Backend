@@ -11,10 +11,14 @@ const {
 
 const authRouter = express.Router();
 
-authRouter.route("/login").post(login);
-authRouter.route("/register").post(uploadFile.single('profileImg'), checkDuplicateEmail, register);
-authRouter.route('/forgot-password').post(forgotPassword);
-authRouter.route('/reset-password').post((resetPassword));
+authRouter.route("/login").post(uploadFile.single("profileImg"), login);
+authRouter
+  .route("/register")
+  .post(uploadFile.single("profileImg"), checkDuplicateEmail, register);
+authRouter
+  .route("/forgot-password")
+  .post(uploadFile.single("profileImg"), forgotPassword);
+authRouter.route("/reset-password").post(resetPassword);
 authRouter.route("/makeRangeIterator").get(makeRangeIterator);
 
 module.exports = authRouter;

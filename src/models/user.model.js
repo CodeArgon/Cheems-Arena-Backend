@@ -40,10 +40,7 @@ class User extends Model {
 
 User.init(
   {
-    firstName: {
-      type: DataTypes.TEXT,
-    },
-    lastName: {
+    userName: {
       type: DataTypes.TEXT,
     },
     email: {
@@ -52,7 +49,7 @@ User.init(
     password: {
       type: DataTypes.STRING,
     },
-    phone: {
+    walletAddress: {
       type: DataTypes.STRING,
     },
     country: {
