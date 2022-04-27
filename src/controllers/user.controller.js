@@ -68,7 +68,7 @@ exports.getSingle = async (req, res) => {
 };
 exports.changeStatus = async (req, res) => {
   try {
-    console.log("Update Status");
+    console.log("update the status");
     let user = await User.findByPk(req.params.id);
     if (user.isActive) {
       await User.update(
@@ -114,8 +114,8 @@ exports.update = async (req, res) => {
         country,
         city,
         gender,
-        dob,
-        age
+        age,
+        dob
       },
       { where: { id: req.params.id } }
     );
