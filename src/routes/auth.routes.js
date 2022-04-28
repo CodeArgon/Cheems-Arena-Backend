@@ -19,6 +19,6 @@ authRouter
   .route("/forgot-password")
   .post(uploadFile.single("profileImg"), forgotPassword);
 authRouter.route("/reset-password").post(resetPassword);
-authRouter.route("/makeRangeIterator").get(makeRangeIterator);
+// authRouter.route("/makeRangeIterator").get(makeRangeIterator);
 
 module.exports = authRouter;

@@ -83,7 +83,7 @@ exports.login = async (req, res, next) => {
         "profileImg",
       ],
       where: {
-        userName: req.body.userName,
+        email: req.body.email,
       },
     });
     if (!user) {
