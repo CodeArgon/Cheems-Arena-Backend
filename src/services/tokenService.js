@@ -3,6 +3,7 @@ import { Metadata } from '@metaplex-foundation/mpl-token-metadata'
 import { PublicKey } from '@solana/web3.js'
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import con from '../config/db.js'
+import { MintList } from '../models/mint_list.js'
 
 let addresses=[];
 const tokenService={
@@ -36,13 +37,7 @@ const tokenService={
         let mintPubkey=new PublicKey(token.mint)
         let tokenmetaPubkey=await Metadata.getPDA(mintPubkey)
         let tokenData=await Metadata.load(connection, tokenmetaPubkey)
-        con.query("SELECT * FROM mint_list", function (err, result) {
-          if (err) {
-            console.log(err)
-          } else {
-            addresses = result
-          }
-        });
+        const addresses = await MintList.findAll();
         for (let i=1; i<addresses.length; i++) {
           if (addresses[i].mint === tokenData.data.mint) {
             return tokenData

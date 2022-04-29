@@ -5,7 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sync:db": "node src/scripts/syncDB.js",
+    "start": "nodemon index.js",
+    "seed:db": "node src/scripts/seedDB.js"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +28,8 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "node-fetch": "^3.2.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.16",
+    "pg": "^8.7.3",
+    "sequelize": "^6.19.0"
   }
 }

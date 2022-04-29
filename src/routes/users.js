@@ -1,7 +1,8 @@
 import { validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
 import { PublicKey } from "@solana/web3.js";
-import con from "../config/db.js";
+import { Op } from "sequelize"
+import { User } from "../models/users.js"
 
 const users = async (req, res) => {
   const errors = validationResult(req);
@@ -27,26 +28,25 @@ const users = async (req, res) => {
         // encrypt password
         const salt = await bcrypt.genSalt(10);
         password = await bcrypt.hash(password, salt);
-
-        var sql = `SELECT * FROM users WHERE username = "${username}" OR email = "${email}" OR walletAddress = "${walletAddress}" `;
-        con.query(sql, function (err, result) {
-          if (err) {
-            console.log(err);
-          } else {
-            if (result.length === 0) {
-              var sql = `INSERT INTO users (username, email, password, walletAddress) VALUES ("${username}", "${email}", "${password}", "${walletAddress}")`;
-              con.query(sql, function (err, result) {
-                if (err) throw err;
-                res.json({ status: 200, msg: "Successfully Registered" });
-              });
-            } else {
-              res.json({
-                status: 400,
-                msg: "Username/Email or Wallet Address already exists",
-              });
-            }
+        let user = await User.findOne({
+          where: {
+            [Op.or]: [
+              { username },
+              { walletAddress }
+            ]
           }
-        });
+        })
+        if (!user) {
+          user = await User.create({
+            username, email, password, walletAddress
+          })
+          res.json({ status: 200, msg: "Successfully Registered" });
+        } else {
+          res.json({
+            status: 400,
+            msg: "Username/Email or Wallet Address already exists",
+          });
+        }
       } else {
         res.json({
           status: 400,
