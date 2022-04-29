@@ -12,8 +12,8 @@ const users = async (req, res) => {
 
   let { username, email, password, walletAddress } = req.body;
 
-  let pubkey = new PublicKey(walletAddress);
-  let isSolana = PublicKey.isOnCurve(pubkey.toBuffer());
+  // let pubkey = new PublicKey(walletAddress);
+  // let isSolana = PublicKey.isOnCurve(pubkey.toBuffer());
 
   if (!isSolana) {
     res.json({ status: 400, msg: "Invalid Wallet Address" });
