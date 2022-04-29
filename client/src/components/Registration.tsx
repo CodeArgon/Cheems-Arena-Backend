@@ -61,23 +61,31 @@ const Register = () => {
     console.log(body)
 
     const config = {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-  
-      try {
-        if(walletAddress === null){
-            alert("Connect wallet")
-        }else{
-            const res = await axios.post(`http://ec2-13-38-127-249.eu-west-3.compute.amazonaws.com/api/v1/signup`, body, config)
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    try {
+      if (walletAddress === null) {
+        alert("Connect wallet")
+      } else {
+        const res = await axios.post(`http://ec2-13-38-127-249.eu-west-3.compute.amazonaws.com/api/v1/signup`, body, config)
+        console.log(res)
+        console.log(res.data)
+        console.log(res.data.status)
+        if (res.data.status == 400) {
+          alert(res.data.msg)
+        } else if (res.data.status == 200) {
+          alert(res.data.msg)
         }
-        // if (res.data.status == 400) {
-        //   alert(res.data.msg)
-        // }
-      } catch (error) {
-        console.log(error)
       }
+      // if (res.data.status == 400) {
+      //   alert(res.data.msg)
+      // }
+    } catch (error) {
+      console.log(error)
+    }
 
   }
 
