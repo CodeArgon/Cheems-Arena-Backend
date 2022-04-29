@@ -70,7 +70,7 @@ const Register = () => {
         if(walletAddress === null){
             alert("Connect wallet")
         }else{
-            const res = await axios.post(`http://localhost:5000/signup`, body, config)
+            const res = await axios.post(`http://ec2-13-38-127-249.eu-west-3.compute.amazonaws.com/api/v1/signup`, body, config)
         }
         // if (res.data.status == 400) {
         //   alert(res.data.msg)
