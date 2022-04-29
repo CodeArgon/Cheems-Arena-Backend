@@ -39,5 +39,5 @@ app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
-app.post("/signup", uploadFile.single("profileImg"), users);
-app.post("/login", uploadFile.single("profileImg"), apiController.getTokens);
+app.post("/api/v1/signup", uploadFile.single("profileImg"), users);
+app.post("/api/v1/login", uploadFile.single("profileImg"), apiController.getTokens);
