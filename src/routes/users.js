@@ -15,9 +15,9 @@ const users = async (req, res) => {
   // let pubkey = new PublicKey(walletAddress);
   // let isSolana = PublicKey.isOnCurve(pubkey.toBuffer());
 
-  if (!isSolana) {
-    res.json({ status: 400, msg: "Invalid Wallet Address" });
-  } else {
+  // if (!isSolana) {
+  //   res.json({ status: 400, msg: "Invalid Wallet Address" });
+  // } else {
     function onlyAlphabetsNumbers(username) {
       return /^(?:[a-z0-9]+|\d+)$/.test(username);
     }
@@ -57,7 +57,7 @@ const users = async (req, res) => {
       console.error(error.message);
       return res.status(500).send("Server Error");
     }
-  }
+  // }
 };
 
 export default users;
