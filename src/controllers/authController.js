@@ -22,7 +22,7 @@ const authController = {
       let code = generatePassword();
       const subject = "Forgot Password";
       const salt = await bcrypt.genSalt(10);
-      const  password = await bcrypt.hash(code, salt);
+      const password = await bcrypt.hash(code, salt);
       await User.update(
         {
           password,
@@ -42,7 +42,10 @@ const authController = {
   },
   changePassword: async (req, res, next) => {
     const { currentPassword, newPassword } = req.body;
-    let correctPassword = await bcrypt.compare(currentPassword, req.user.password);
+    let correctPassword = await bcrypt.compare(
+      currentPassword,
+      req.user.password
+    );
 
     if (correctPassword) {
       const salt = await bcrypt.genSalt(10);
@@ -64,21 +67,47 @@ const authController = {
       });
     } else {
       res.send({
-        "code": 400,
-        "error": "Current password doesn't match"
-    })
+        code: 400,
+        error: "Current password doesn't match",
+      });
     }
+  },
+  updateProfile: async (req, res, next) => {
+    const { username, password, email } = req.body;
+    const salt = await bcrypt.genSalt(10);
+    let pasword = await bcrypt.hash(password, salt);
+    let obj = {}
+    if (username) {
+      obj.username = username 
+    }
+    if (email) {
+      obj.email = email 
+    }
+    if (password) {
+      obj.password = pasword
+    }
+    await User.update(
+      obj,
+      {
+        where: {
+          id: req.user.id,
+        },
+      }
+    );
 
+    res.status(200).send({
+      status: "success",
+      msg: "Profile updated successfully",
+    });
   },
 };
 
-
 function generatePassword() {
   var length = 8,
-      charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-      retVal = "";
+    charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+    retVal = "";
   for (var i = 0, n = charset.length; i < length; ++i) {
-      retVal += charset.charAt(Math.floor(Math.random() * n));
+    retVal += charset.charAt(Math.floor(Math.random() * n));
   }
   return retVal;
 }

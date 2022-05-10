@@ -58,3 +58,11 @@ app.post(
   uploadFile.single("profileImg"),
   authController.changePassword
 );
+
+
+app.post(
+  "/api/v1/update-profile",
+  authJwt,
+  uploadFile.single("profileImg"),
+  authController.updateProfile
+);
