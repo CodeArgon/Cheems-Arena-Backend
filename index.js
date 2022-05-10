@@ -1,4 +1,6 @@
 import apiController from "./src/controllers/apiController.js";
+import authController from "./src/controllers/authController.js";
+import {authJwt} from "./src/middlewares/authJwt.js";
 import express from "express";
 import cors from "cors";
 // import connectDB from './src/config/db.js'
@@ -40,4 +42,19 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/v1/signup", uploadFile.single("profileImg"), users);
-app.post("/api/v1/login", uploadFile.single("profileImg"), apiController.getTokens);
+app.post(
+  "/api/v1/login",
+  uploadFile.single("profileImg"),
+  apiController.getTokens
+);
+app.post(
+  "/api/v1/forgot-password",
+  uploadFile.single("profileImg"),
+  authController.forgotPassword
+);
+app.post(
+  "/api/v1/change-password",
+  authJwt,
+  uploadFile.single("profileImg"),
+  authController.changePassword
+);
