@@ -1,6 +1,7 @@
 import status from "http-status";
 import { User } from "../models/users.js";
 import { Deck } from "../models/decks.js";
+import { DeckCard } from "../models/deckCards";
 
 const deckController = {
   createDeck: async (req, res, next) => {
@@ -9,7 +10,7 @@ const deckController = {
         let deck = await Deck.create({
           name: req.body.name,
           userId: req.user.id,
-        } );
+        });
 
         res.status(status.CREATED).json({
           status: "success",
@@ -21,6 +22,24 @@ const deckController = {
         });
       }
     } catch (err) {}
+  },
+  addCardToDeck: async (req, res, next) => {
+    try {
+      let {
+        params: { deckId },
+        user: { id: userId },
+      } = req;
+
+      let card = await DeckCard.create({
+        userId: userId,
+        deckId: deckId,
+      });
+
+      res.status(status.CREATED).json({
+        status: "success",
+        card: card,
+      });
+    } catch (error) {}
   },
 };
 

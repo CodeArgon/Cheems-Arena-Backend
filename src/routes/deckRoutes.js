@@ -21,5 +21,6 @@ const userProfileRouter = express.Router();
 import {authJwt} from "../middlewares/authJwt.js";
 
 userProfileRouter.route("/create").post(authJwt, uploadFile.single("profileImg"),deckController.createDeck);
+userProfileRouter.route("/add-card/:deckId").post(authJwt, uploadFile.single("profileImg"),deckController.addCardToDeck);
 
 export default userProfileRouter
