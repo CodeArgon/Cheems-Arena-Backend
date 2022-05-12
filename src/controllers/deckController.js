@@ -1,7 +1,7 @@
 import status from "http-status";
 import { User } from "../models/users.js";
 import { Deck } from "../models/decks.js";
-import { DeckCard } from "../models/deckCards";
+import { DeckCard } from "../models/deckCards.js";
 
 const deckController = {
   createDeck: async (req, res, next) => {
