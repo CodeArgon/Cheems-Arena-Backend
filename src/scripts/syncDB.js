@@ -3,6 +3,7 @@ import sequelize from "../config/db.js";
 import { User } from "../models/users.js";
 import { MintList } from "../models/mint_list.js";
 import { ForgotPasswordToken } from "../models/forgotPasswordToken.js";
+import { Deck } from "../models/decks.js";
 
 User.hasOne(ForgotPasswordToken, {
   onDelete: "CASCADE",

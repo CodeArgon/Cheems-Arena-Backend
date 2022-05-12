@@ -1,10 +1,12 @@
 import apiController from "./src/controllers/apiController.js";
 import authController from "./src/controllers/authController.js";
+import deckController from "./src/controllers/deckController.js";
 import {authJwt} from "./src/middlewares/authJwt.js";
 import express from "express";
 import cors from "cors";
 // import connectDB from './src/config/db.js'
 import users from "./src/routes/users.js";
+import deckRoutes from "./src/routes/deckRoutes.js"
 import "dotenv/config";
 // import { uploadFile } from "./src/utils/fileUpload";
 import multer from "multer";
@@ -66,3 +68,5 @@ app.post(
   uploadFile.single("profileImg"),
   authController.updateProfile
 );
+
+app.use(`${process.env.URL_PREFIX}/deck`, deckRoutes);
