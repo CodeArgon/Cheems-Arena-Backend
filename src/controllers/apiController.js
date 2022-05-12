@@ -15,7 +15,7 @@ const apiController = {
             }
         })
         if (!user) {
-            res.send({
+            res.status(400).send({
                 "code": 400,
                 "error": "Username doesn't exist"
             })
@@ -52,7 +52,7 @@ const apiController = {
                 };
                 res.json(response);
             } else {
-                res.send({
+                res.status(400).send({
                     "code": 400,
                     "error": "Username or password doesn't match"
                 })

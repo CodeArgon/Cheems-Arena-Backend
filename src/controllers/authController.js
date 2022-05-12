@@ -2,7 +2,7 @@ import status from "http-status";
 import { sendForgotPasswordEmail } from "../utils/sendEmail.js";
 import { ForgotPasswordToken } from "../models/forgotPasswordToken.js";
 import { User } from "../models/users.js";
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
 
 const authController = {
   forgotPassword: async (req, res, next) => {
@@ -66,7 +66,7 @@ const authController = {
         msg: "Password updated successfully",
       });
     } else {
-      res.send({
+      res.status(400).send({
         code: 400,
         error: "Current password doesn't match",
       });
@@ -76,24 +76,21 @@ const authController = {
     const { username, password, email } = req.body;
     const salt = await bcrypt.genSalt(10);
     let pasword = await bcrypt.hash(password, salt);
-    let obj = {}
+    let obj = {};
     if (username) {
-      obj.username = username 
+      obj.username = username;
     }
     if (email) {
-      obj.email = email 
+      obj.email = email;
     }
     if (password) {
-      obj.password = pasword
+      obj.password = pasword;
     }
-    await User.update(
-      obj,
-      {
-        where: {
-          id: req.user.id,
-        },
-      }
-    );
+    await User.update(obj, {
+      where: {
+        id: req.user.id,
+      },
+    });
 
     res.status(200).send({
       status: "success",
