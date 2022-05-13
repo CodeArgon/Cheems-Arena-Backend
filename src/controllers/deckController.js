@@ -75,6 +75,27 @@ const deckController = {
       }
     } catch (error) {}
   },
+  getAllCardsOfDeck: async (req, res, next) => {
+    try {
+      let {
+        params: { deckId },
+      } = req;
+
+      let deckWithCards = await Deck.findOne({
+        where: { id: deckId },
+        include: [
+          {
+            model: DeckCard,
+          },
+        ],
+      });
+
+      res.status(status.CREATED).json({
+        status: "success",
+        deck: deckWithCards,
+      });
+    } catch (err) {}
+  },
 };
 
 export default deckController;
