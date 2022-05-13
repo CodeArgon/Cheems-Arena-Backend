@@ -1,5 +1,4 @@
 import status from "http-status";
-import { User } from "../models/users.js";
 import { Deck } from "../models/decks.js";
 import { DeckCard } from "../models/deckCards.js";
 
@@ -23,22 +22,57 @@ const deckController = {
       }
     } catch (err) {}
   },
+
   addCardToDeck: async (req, res, next) => {
     try {
       let {
         params: { deckId },
         user: { id: userId },
+        body: { name, description },
       } = req;
 
-      let card = await DeckCard.create({
-        userId: userId,
-        deckId: deckId,
+      let deck = await Deck.findOne({
+        where: { id: deckId },
       });
 
-      res.status(status.CREATED).json({
-        status: "success",
-        card: card,
-      });
+      if (deck.userId !== userId) {
+        res.status(400).send({
+          message: "You do not hold this deck",
+        });
+      } else {
+        let existingCardsLength = await DeckCard.count({
+          where: {
+            deckId: deckId,
+          },
+        });
+
+        if (existingCardsLength >= 30) {
+          res.status(400).send({
+            message: "You have reached the total limit of this deck",
+          });
+        } else {
+          await DeckCard.create({
+            userId: userId,
+            deckId: deckId,
+            name: name,
+            description: description,
+          });
+
+          let deckWithCards = await Deck.findOne({
+            where: { id: deckId },
+            include: [
+              {
+                model: DeckCard,
+              },
+            ],
+          });
+
+          res.status(status.CREATED).json({
+            status: "success",
+            deck: deckWithCards,
+          });
+        }
+      }
     } catch (error) {}
   },
 };
