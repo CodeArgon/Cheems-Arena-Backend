@@ -90,10 +90,42 @@ const deckController = {
         ],
       });
 
-      res.status(status.CREATED).json({
+      res.status(200).json({
         status: "success",
         deck: deckWithCards,
       });
+    } catch (err) {}
+  },
+  deleteCardById: async (req, res, next) => {
+    try {
+      let {
+        params: { deckId, cardId },
+      } = req;
+
+      let card = await DeckCard.findOne({
+        where: {
+          id: cardId,
+          deckId: deckId,
+        },
+      });
+
+      if (!card) {
+        res.status(400).send({
+          message: "Card not found in the deck",
+        });
+      } else {
+        await DeckCard.destroy({
+          where: {
+            id: cardId,
+            deckId: deckId,
+          },
+        });
+
+        res.status(200).json({
+          status: "success",
+          msg: "Card deleted successfully.",
+        });
+      }
     } catch (err) {}
   },
 };

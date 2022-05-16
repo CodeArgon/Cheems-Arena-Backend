@@ -21,7 +21,8 @@ const userProfileRouter = express.Router();
 import {authJwt} from "../middlewares/authJwt.js";
 
 userProfileRouter.route("/create").post(authJwt, uploadFile.single("profileImg"),deckController.createDeck);
-userProfileRouter.route("/add-card/:deckId").post(authJwt, uploadFile.single("profileImg"),deckController.addCardToDeck);
+userProfileRouter.route("/:deckId/add-card").post(authJwt, uploadFile.single("profileImg"),deckController.addCardToDeck);
 userProfileRouter.route("/:deckId/all-cards").get(authJwt,deckController.getAllCardsOfDeck);
+userProfileRouter.route("/:deckId/card/:cardId/delete").delete(authJwt,deckController.deleteCardById);
 
 export default userProfileRouter
