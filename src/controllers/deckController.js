@@ -128,6 +128,31 @@ const deckController = {
       }
     } catch (err) {}
   },
+  getCardById: async (req, res, next) => {
+    try {
+      let {
+        params: { deckId, cardId },
+      } = req;
+
+      let card = await DeckCard.findOne({
+        where: {
+          id: cardId,
+          deckId: deckId,
+        },
+      });
+
+      if (!card) {
+        res.status(400).send({
+          message: "Card not found in the deck",
+        });
+      } else {
+        res.status(200).json({
+          status: "success",
+          card: card,
+        });
+      }
+    } catch (err) {}
+  },
 };
 
 export default deckController;
