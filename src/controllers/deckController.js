@@ -28,7 +28,7 @@ const deckController = {
       let {
         params: { deckId },
         user: { id: userId },
-        body: { name, description },
+        body: { name, description,mana,faction,rarity,life, strength,power },
       } = req;
 
       let deck = await Deck.findOne({
@@ -56,6 +56,12 @@ const deckController = {
             deckId: deckId,
             name: name,
             description: description,
+            mana,
+            faction,
+            rarity,
+            life,
+            strength,
+            power,
           });
 
           let deckWithCards = await Deck.findOne({

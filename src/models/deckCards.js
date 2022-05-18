@@ -14,8 +14,32 @@ DeckCard.init(
       type: DataTypes.TEXT,
     },
     description: {
-      type: DataTypes.TEXT,  
-    }
+      type: DataTypes.TEXT,
+    },
+    mana: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    faction: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    rarity: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    life: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    strength: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    power: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   },
   {
     sequelize,
