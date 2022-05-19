@@ -28,7 +28,16 @@ const deckController = {
       let {
         params: { deckId },
         user: { id: userId },
-        body: { name, description,mana,faction,rarity,life, strength,power },
+        body: {
+          name,
+          description,
+          mana,
+          faction,
+          rarity,
+          life,
+          strength,
+          power,
+        },
       } = req;
 
       let deck = await Deck.findOne({
@@ -157,6 +166,23 @@ const deckController = {
           card: card,
         });
       }
+    } catch (err) {}
+  },
+  getAllDecks: async (req, res, next) => {
+    try {
+      let {
+        user: { id: userId },
+      } = req;
+
+      let decks = await Deck.findAll({
+        where: {
+          userId: userId,
+        },
+      });
+      res.status(200).json({
+        status: "success",
+        decks: decks,
+      });
     } catch (err) {}
   },
 };

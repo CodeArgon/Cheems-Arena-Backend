@@ -16,37 +16,41 @@ const storage = multer.diskStorage({
 let uploadFile = multer({
   storage: storage,
 });
-const userProfileRouter = express.Router();
+const deckRouter = express.Router();
 import { authJwt } from "../middlewares/authJwt.js";
 
 // create a new deck
 
-userProfileRouter
+deckRouter
   .route("/create")
   .post(authJwt, uploadFile.single("profileImg"), deckController.createDeck);
 
+  // get all the decks
+
+deckRouter.route("/get-all").get(authJwt, deckController.getAllDecks);
+
 // add a card to the deck
 
-userProfileRouter
+deckRouter
   .route("/:deckId/add-card")
   .post(authJwt, uploadFile.single("profileImg"), deckController.addCardToDeck);
 
 // get all the cards of the deck
 
-userProfileRouter
+deckRouter
   .route("/:deckId/all-cards")
   .get(authJwt, deckController.getAllCardsOfDeck);
 
 // remove card from the deck
 
-userProfileRouter
+deckRouter
   .route("/:deckId/card/:cardId/delete")
   .delete(authJwt, deckController.deleteCardById);
 
 // get a card from the deck
 
-userProfileRouter
+deckRouter
   .route("/:deckId/card/:cardId")
   .get(authJwt, deckController.getCardById);
 
-export default userProfileRouter;
+export default deckRouter;
