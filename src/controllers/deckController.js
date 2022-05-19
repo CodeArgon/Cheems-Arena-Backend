@@ -60,32 +60,42 @@ const deckController = {
             message: "You have reached the total limit of this deck",
           });
         } else {
-          await DeckCard.create({
-            userId: userId,
+          let cardExists = await DeckCard.findOne({
             deckId: deckId,
             name: name,
-            description: description,
-            mana,
-            faction,
-            rarity,
-            life,
-            strength,
-            power,
           });
+          if (cardExists) {
+            res.status(400).send({
+              message: "This card already exists in the deck.",
+            });
+          } else {
+            await DeckCard.create({
+              userId: userId,
+              deckId: deckId,
+              name: name,
+              description: description,
+              mana,
+              faction,
+              rarity,
+              life,
+              strength,
+              power,
+            });
 
-          let deckWithCards = await Deck.findOne({
-            where: { id: deckId },
-            include: [
-              {
-                model: DeckCard,
-              },
-            ],
-          });
+            let deckWithCards = await Deck.findOne({
+              where: { id: deckId },
+              include: [
+                {
+                  model: DeckCard,
+                },
+              ],
+            });
 
-          res.status(status.CREATED).json({
-            status: "success",
-            deck: deckWithCards,
-          });
+            res.status(status.CREATED).json({
+              status: "success",
+              deck: deckWithCards,
+            });
+          }
         }
       }
     } catch (error) {}
