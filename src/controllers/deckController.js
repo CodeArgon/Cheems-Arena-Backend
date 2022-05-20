@@ -1,6 +1,7 @@
 import status from "http-status";
 import { Deck } from "../models/decks.js";
 import { DeckCard } from "../models/deckCards.js";
+import _ from "lodash";
 
 const deckController = {
   createDeck: async (req, res, next) => {
@@ -192,6 +193,30 @@ const deckController = {
       res.status(200).json({
         status: "success",
         decks: decks,
+      });
+    } catch (err) {}
+  },
+  getRandomFourCardsOfDeck: async (req, res, next) => {
+    try {
+      let {
+        params: { deckId },
+      } = req;
+
+      let deckWithCards = await Deck.findOne({
+        where: { id: deckId },
+        include: [
+          {
+            model: DeckCard,
+          },
+        ],
+      });
+
+      const randomFourCards = _.sampleSize(deckWithCards.DeckCards, 4);
+      deckWithCards.dataValues.randomFourCards = randomFourCards;
+
+      res.status(200).json({
+        status: "success",
+        randomFourCards: randomFourCards,
       });
     } catch (err) {}
   },

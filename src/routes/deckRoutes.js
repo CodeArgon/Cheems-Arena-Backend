@@ -41,6 +41,12 @@ deckRouter
   .route("/:deckId/all-cards")
   .get(authJwt, deckController.getAllCardsOfDeck);
 
+// get random four cards of the deck
+
+deckRouter
+  .route("/:deckId/random-four-cards")
+  .get(authJwt, deckController.getRandomFourCardsOfDeck);
+
 // remove card from the deck
 
 deckRouter
