@@ -62,8 +62,10 @@ const deckController = {
           });
         } else {
           let cardExists = await DeckCard.findOne({
-            deckId: deckId,
-            name: name,
+            where: {
+              deckId: deckId,
+              name: name,
+            },
           });
           if (cardExists) {
             res.status(400).send({
