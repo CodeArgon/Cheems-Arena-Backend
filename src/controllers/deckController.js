@@ -7,15 +7,28 @@ const deckController = {
   createDeck: async (req, res, next) => {
     try {
       if (req.body.name) {
-        let deck = await Deck.create({
-          name: req.body.name,
-          userId: req.user.id,
+        let deckExistsWithThisName = await Deck.findOne({
+          where: {
+            name: req.body.name,
+            userId: req.user.id,
+          },
         });
 
-        res.status(status.CREATED).json({
-          status: "success",
-          deck: deck,
-        });
+        if (deckExistsWithThisName) {
+          res.status(400).send({
+            message: "Please choose the other name for the deck",
+          });
+        } else {
+          let deck = await Deck.create({
+            name: req.body.name,
+            userId: req.user.id,
+          });
+
+          res.status(status.CREATED).json({
+            status: "success",
+            deck: deck,
+          });
+        }
       } else {
         res.status(400).send({
           message: "Please specify the name for the deck",
@@ -23,7 +36,6 @@ const deckController = {
       }
     } catch (err) {}
   },
-
   addCardToDeck: async (req, res, next) => {
     try {
       let {
