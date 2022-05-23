@@ -5,6 +5,8 @@ import { MintList } from "../models/mint_list.js";
 import { ForgotPasswordToken } from "../models/forgotPasswordToken.js";
 import { Deck } from "../models/decks.js";
 import { DeckCard } from "../models/deckCards.js";
+import { CardModel } from "../models/cardModels.js";
+import { DeckCardModel } from "../models/deckCardModels.js";
 
 User.hasOne(ForgotPasswordToken, {
   onDelete: "CASCADE",
