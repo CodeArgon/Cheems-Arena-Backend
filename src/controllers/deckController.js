@@ -9,7 +9,7 @@ const deckController = {
       if (req.body.name) {
         let deckExistsWithThisName = await Deck.findOne({
           where: {
-            name: req.body.name,
+            name:req.body.name,
             userId: req.user.id,
           },
         });
@@ -23,7 +23,7 @@ const deckController = {
             name: req.body.name,
             userId: req.user.id,
           });
-
+  
           res.status(status.CREATED).json({
             status: "success",
             deck: deck,
