@@ -80,14 +80,19 @@ const authController = {
     const salt = await bcrypt.genSalt(10);
     let pasword = await bcrypt.hash(password, salt);
     let obj = {};
-    if (username) {
-      obj.username = username;
-    }
-    if (email) {
-      obj.email = email;
-    }
+    // if (username) {
+    //   obj.username = username;
+    // }
+    // if (email) {
+    //   obj.email = email;
+    // }
     if (password) {
       obj.password = pasword;
+    }
+    if (password.length < 3) {
+      res.status(400).send({
+        message: "Password length must be greater than 3 characters.",
+      });
     }
     await User.update(obj, {
       where: {
