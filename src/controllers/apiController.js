@@ -43,13 +43,14 @@ const apiController = {
                 let metaDataArray = await tokenController.getMetaData(pubKey);
 
                 let response = {
-                    LoginDataRoot: {
-                        pubKey,
-                        data: metaDataArray,
-                        message: "Token metaData found in user wallet.",
-                        token,
-                        user
-                    }
+                  LoginDataRoot: {
+                    pubKey,
+                    data: metaDataArray,
+                    message: "Token metaData found in user wallet.",
+                    token,
+                    username: user.username,
+                    email: user.email,
+                  },
                 };
                 res.json(response);
             } else {
