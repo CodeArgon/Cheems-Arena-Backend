@@ -50,6 +50,7 @@ const apiController = {
                     token,
                     username: user.username,
                     email: user.email,
+                    walletAddress: user.walletAddress,
                   },
                 };
                 res.json(response);
