@@ -11,6 +11,7 @@ import "dotenv/config";
 // import { uploadFile } from "./src/utils/fileUpload";
 import multer from "multer";
 const app = express();
+import  globalError from "./src/middlewares/globalError.js";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -68,5 +69,6 @@ app.post(
   uploadFile.single("profileImg"),
   authController.updateProfile
 );
+app.use(globalError);
 
 app.use(`${process.env.URL_PREFIX}/deck`, deckRoutes);
