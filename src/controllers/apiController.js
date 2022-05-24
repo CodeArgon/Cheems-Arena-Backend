@@ -48,9 +48,9 @@ const apiController = {
                         data: metaDataArray,
                         message: "Token metaData found in user wallet.",
                         token,
+                        user
                     }
                 };
-                response.user = user
                 res.json(response);
             } else {
                 res.status(400).send({
