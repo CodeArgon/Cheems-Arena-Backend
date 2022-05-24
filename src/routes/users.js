@@ -3,8 +3,10 @@ import bcrypt from "bcryptjs";
 import { PublicKey } from "@solana/web3.js";
 import { Op } from "sequelize"
 import { User } from "../models/users.js"
+import APIError from "../utils/APIError.js";
+import status from "http-status";
 
-const users = async (req, res) => {
+const users = async (req, res,next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -32,30 +34,32 @@ const users = async (req, res) => {
           where: {
             [Op.or]: [
               { username },
-              { walletAddress }
+              { walletAddress },
+              { email }
             ]
           }
         })
         if (!user) {
           user = await User.create({
-            username, email, password, walletAddress
-          })
+            username,
+            email,
+            password,
+            walletAddress,
+          });
           res.json({ status: 200, msg: "Successfully Registered" });
         } else {
-          res.json({
-            status: 400,
-            msg: "Username/Email or Wallet Address already exists",
-          });
+          throw new Error("Username/Email or Wallet Address already exists");
         }
       } else {
-        res.json({
-          status: 400,
-          msg: "inValid input: No special characters allowed",
-        });
+        throw new Error("invalid input: No special characters allowed");
       }
     } catch (error) {
-      console.error(error.message);
-      return res.status(500).send("Server Error");
+      return next(
+        new APIError(
+          error.message,
+          status.BAD_REQUEST
+        )
+      );
     }
   // }
 };

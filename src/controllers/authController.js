@@ -3,42 +3,45 @@ import { sendForgotPasswordEmail } from "../utils/sendEmail.js";
 import { ForgotPasswordToken } from "../models/forgotPasswordToken.js";
 import { User } from "../models/users.js";
 import bcrypt from "bcryptjs";
+import APIError from "../utils/APIError.js";
 
 const authController = {
   forgotPassword: async (req, res, next) => {
-    const { email } = req.body;
+    try {
+      const { email } = req.body;
 
-    const user = await User.findOne({
-      where: {
-        email,
-      },
-      include: [ForgotPasswordToken],
-    });
-    if (!user) {
-      res.status(400).send({
-        message: "No User found with the email address",
-      });
-    } else {
-      let code = generatePassword();
-      const subject = "Forgot Password";
-      const salt = await bcrypt.genSalt(10);
-      const password = await bcrypt.hash(code, salt);
-      await User.update(
-        {
-          password,
+      const user = await User.findOne({
+        where: {
+          email,
         },
-        {
-          where: {
-            id: user.id,
+        include: [ForgotPasswordToken],
+      });
+      if (!user) {
+        throw new Error("No User found with the email address");
+      } else {
+        let code = generatePassword();
+        const subject = "Forgot Password";
+        const salt = await bcrypt.genSalt(10);
+        const password = await bcrypt.hash(code, salt);
+        await User.update(
+          {
+            password,
           },
-        }
-      );
-      sendForgotPasswordEmail(email, subject, code);
-    }
+          {
+            where: {
+              id: user.id,
+            },
+          }
+        );
+        sendForgotPasswordEmail(email, subject, code);
+      }
 
-    res.status(status.CREATED).json({
-      status: "success",
-    });
+      res.status(status.CREATED).json({
+        status: "success",
+      });
+    } catch (error) {
+      return next(new APIError(error.message, status.BAD_REQUEST));
+    }
   },
   changePassword: async (req, res, next) => {
     const { currentPassword, newPassword } = req.body;
