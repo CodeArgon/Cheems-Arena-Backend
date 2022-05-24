@@ -91,7 +91,7 @@ const authController = {
     }
     if (password.length < 3) {
       res.status(400).send({
-        message: "Password length must be atleast than 3 characters.",
+        message: "Password length must be atleast 3 characters.",
       });
     }
     await User.update(obj, {
