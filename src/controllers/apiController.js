@@ -50,6 +50,7 @@ const apiController = {
                         token,
                     }
                 };
+                response.user = user
                 res.json(response);
             } else {
                 res.status(400).send({

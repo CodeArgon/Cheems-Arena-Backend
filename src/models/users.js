@@ -46,6 +46,9 @@ User.init(
     walletAddress: {
       type: DataTypes.TEXT,
     },
+    profilePicture: {
+      type: DataTypes.TEXT,
+    },
   },
   {
     sequelize,
