@@ -46,3 +46,10 @@ CardModel.init(
     modelName: "CardModel",
   }
 );
+
+CardModel.belongsTo(User, {
+  foreignKey: {
+    name: "userId",
+    allowNull: false,
+  },
+});

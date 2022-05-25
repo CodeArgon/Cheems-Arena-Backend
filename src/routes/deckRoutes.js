@@ -59,4 +59,5 @@ deckRouter
   .route("/:deckId/card/:cardId")
   .get(authJwt, deckController.getCardById);
 
+// CARD MODEL DECK ROUTES //
 export default deckRouter;
