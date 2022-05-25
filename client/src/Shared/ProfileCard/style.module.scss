@@ -1,0 +1,28 @@
+@import "../../Assets/Scss/veriables.scss";
+
+.cardDesign {
+  background: $black;
+  border-radius: $border-radius-10;
+  border: $bold-border;
+  box-shadow: none;
+  padding: 30px;
+  padding-top: 40px;
+}
+.cheemsCardContent {
+  margin-top: 15px;
+  padding-bottom: 25px;
+}
+.cheemsImage {
+  position: absolute !important;
+  top: -50px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  left: 0;
+  .cheemslogo {
+    height: 100px;
+    width: 100px;
+    border:1px solid #b59b41;
+    object-fit: contain;
+  }
+}

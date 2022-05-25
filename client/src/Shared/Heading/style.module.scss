@@ -1,0 +1,27 @@
+@import "../../Assets/Scss/veriables.scss";
+
+.mainHeading {
+  font-size: $font-36;
+  line-height: 42px;
+  font-weight: $font-weight-600;
+  color: $white;
+}
+.pageHeading {
+  font-size: $font-22;
+  font-weight: $font-weight-600;
+  color: $white;
+  line-height: 28px;
+  span {
+    border-bottom: $bold-border;
+    padding-bottom: 2px;
+  }
+}
+.subHeadingSize {
+  font-size: $font-18;
+  color: $white;
+  // text-transform: $text-uppercase;
+  span {
+    border-bottom: $border;
+    padding-bottom: 2px;
+  }
+}

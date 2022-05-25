@@ -1,0 +1,78 @@
+@import "../../../Assets/Scss/veriables.scss";
+
+.loginScreen {
+  background-image: url(./../../../Assets/Images/backgroundImg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  // height: 100vh;
+   /* Set rules to fill background */
+   min-height:100%;
+   min-width:1024px;
+    /* Set up proportionate scaling */
+   width:100%;
+   height:auto;
+    /* Set up positioning */
+   position: absolute;
+   overflow: hidden;
+   top:0;
+   left:0;
+  .loginCard {
+    top: 30%;
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.7); /* Black w/opacity/see-through */
+    .cheemsCardContent{
+      margin-top: 25px;
+      padding-top: 30px;
+      padding-bottom: 30px;
+    
+    }
+  }
+}
+.forgotTextLogin {
+  text-align: end;
+  font-size: 12px;
+  line-height: 0px;
+}
+.loginButton {
+  background: none;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 40px;
+  padding: 12px;
+  background-image: url(./../../../Assets/Images/btn_login.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color: black;
+  font-size: 20px;
+  font-weight: 1000;
+}
+.createAccountButton {
+  border: $border;
+  background: transparent;
+  border-radius: 0px !important;
+  width: 100%;
+  margin-bottom: 8px;
+  margin-top: 10px;
+  padding: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+}
+.loginInput{
+    font-size: $font-14;
+    width: 100%;
+    border-bottom: none;
+    border-radius: 5px;
+    color: rgba(255, 255, 255, 0.5) !important;
+    border:0;
+    padding: 4px !important;
+    padding-left: 8px !important;
+    background: #191B2A;
+    margin-bottom:3px;
+   
+    &:hover {
+        border-color: $primary;
+        outline: none;
+        box-shadow: none;
+      }
+}

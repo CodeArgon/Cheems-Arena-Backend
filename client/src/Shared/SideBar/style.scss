@@ -1,0 +1,44 @@
+@import "../../Assets/Scss/veriables.scss";
+
+.logoStyle {
+  width: 150px;
+  padding: 8px 32px;
+  margin-top: 18px;
+  margin-bottom: 20px;
+}
+.pro-sidebar {
+  font-family: $font-family-Dosis;
+  height: 100vh !important;
+  width: 250px !important;
+  min-width: 250px !important;
+  z-index: 2;
+  position: absolute !important;
+  top: 0px;
+  bottom: 0px;
+  transition: -webkit-transform 0.3s ease-out 0s;
+  will-change: transform;
+  overflow-y: auto;
+  left: 0px;
+  transform: translateX(0%);
+  box-shadow: rgb(0 0 0 / 15%) 2px 2px 4px;
+  &.collapsed {
+    width: 80px !important;
+    min-width: 80px !important;
+  }
+  .pro-sidebar-layout {
+    background: $black;
+  }
+  .pro-inner-item {
+    padding: 8px 34px 8px 28px !important;
+    background: $black;
+    .pro-icon {
+      background: $black;
+      img {
+        width: 20px !important;
+      }
+    }
+    .pro-item-content {
+      margin-left: 4px;
+    }
+  }
+}

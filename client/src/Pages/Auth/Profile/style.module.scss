@@ -1,0 +1,57 @@
+@import "../../../Assets/Scss/veriables.scss";
+.arrowImage {
+  margin: 22px !important;
+  .imgStyle {
+    cursor: pointer;
+  }
+}
+.profileScreen {
+  .profileCard {
+    // top: 10%;
+    margin: 30px;
+    padding-bottom: 55px;
+    padding-top: 55px;
+    background-color: #343f54; /* Fallback color */
+    border: 1px solid #b59b41;
+  }
+}
+
+.profileInput {
+  font-size: $font-14;
+  width: 100%;
+  border-bottom: none;
+  border-radius: 5px;
+  margin-top: 10px !important;
+  margin-bottom: 20px !important;
+  border: 0;
+  padding: 4px !important;
+  padding-left: 8px !important;
+  background: #1f2b3d;
+  margin-bottom: 3px;
+
+  &:hover {
+    border-color: $primary;
+    outline: none;
+    box-shadow: none;
+  }
+}
+.profileButton {
+  margin-bottom: 40px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.loginLink {
+  color: #b59b41;
+}
+.successMessage {
+  margin-top: 40px !important;
+  margin-bottom: 20px !important;
+}
+
+.changeProfileButton {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  margin-top: 0 !important;
+}

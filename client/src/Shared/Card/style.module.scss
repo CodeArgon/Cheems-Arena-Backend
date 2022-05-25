@@ -1,0 +1,9 @@
+@import "../../Assets/Scss/veriables.scss";
+
+.cardDesign {
+  background: $black;
+  border-radius: $border-radius-10;
+  box-shadow: none;
+  border: none;
+  padding: 30px;
+}

@@ -1,0 +1,21 @@
+@import "../../Assets/Scss/veriables.scss";
+
+.navBarDesign {
+  padding-left: 250px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  background: transparent !important;
+  .innerNavBody {
+    width: 100%;
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    .userTopImg {
+      width: 45px;
+      margin-left: auto;
+    }
+  }
+}

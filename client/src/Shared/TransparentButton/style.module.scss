@@ -1,0 +1,17 @@
+@import "../../Assets/Scss/veriables.scss";
+
+.btnDesign {
+  background: transparent;
+  color: $white;
+  border-radius: $border-radius-10 !important;
+  font-weight: $font-weight-500;
+  font-size: $font-16;
+  border: none;
+  width: 130px;
+  padding: 4px 10px;
+  &:hover {
+    border-color: none;
+    outline: none;
+    box-shadow: none;
+  }
+}

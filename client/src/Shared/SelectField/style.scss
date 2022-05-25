@@ -1,0 +1,43 @@
+@import "../../Assets/Scss/veriables.scss";
+
+.inputFormDiv {
+  position: relative;
+  margin-bottom: 20px;
+  .selectFieldDesign {
+    .css-1s2u09g-control {
+      font-size: $font-14;
+      border-radius: $border-radius-10;
+      color: $light-gray;
+      border: $border;
+      background: transparent;
+      &:focus {
+        box-shadow: none;
+        outline: none;
+        background: transparent;
+      }
+    }
+    .css-1pahdxg-control {
+      background: transparent;
+      font-size: $font-14;
+      outline: none !important;
+      border-radius: $border-radius-10;
+      border-color: $primary;
+      box-shadow: none;
+      outline: none;
+      &:hover {
+        border-color: $primary;
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+  .errorMessage {
+    font-size: $font-12;
+    color: $red;
+    position: absolute;
+    bottom: -21px;
+    line-height: 18px;
+    left: 10px;
+    text-align: left;
+  }
+}

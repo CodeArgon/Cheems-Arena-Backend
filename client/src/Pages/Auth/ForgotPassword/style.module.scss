@@ -1,0 +1,54 @@
+@import "../../../Assets/Scss/veriables.scss";
+.arrowImage {
+  margin: 22px !important;
+  .imgStyle {
+    cursor: pointer;
+  }
+}
+.forgetScreen {
+  .forgetCard {
+    top: 40%;
+    margin: 30px;
+    padding-bottom: 55px;
+    padding-top: 55px;
+    background-color: #343f54; /* Fallback color */
+    border: 1px solid #b59b41;
+  }
+}
+
+.forgetInput {
+  font-size: $font-14;
+  width: 100%;
+  border-bottom: none;
+  border-radius: 5px;
+  margin-top: 40px !important;
+  margin-bottom: 20px !important;
+  border: 0;
+  padding: 4px !important;
+  padding-left: 8px !important;
+  background: #616877;
+  margin-bottom: 3px;
+
+  &:hover {
+    border-color: $primary;
+    outline: none;
+    box-shadow: none;
+  }
+}
+.forgetButton {
+  margin-bottom: 40px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.loginLink {
+  color: #b59b41;
+  cursor: pointer;
+}
+a:link {
+  text-decoration: none;
+}
+.successMessage{
+  margin-top: 40px !important;
+  margin-bottom: 40px !important;
+}

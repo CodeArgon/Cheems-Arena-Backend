@@ -1,0 +1,15 @@
+@import "../../Assets/Scss/veriables.scss";
+
+.contentPage {
+  padding-left: 250px;
+  padding-top: 1px;
+  height: 100vh;
+  background: $black;
+  .content {
+    padding-top: 60px;
+    height: 97vh;
+    margin: 10px;
+    border-radius: 16px;
+    background-image: url("../../Assets/Images/backgroundImg.svg");
+  }
+}

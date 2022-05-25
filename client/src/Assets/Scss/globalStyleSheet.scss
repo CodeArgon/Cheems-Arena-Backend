@@ -1,0 +1,19 @@
+@import "./veriables.scss";
+@import ".../../../../index.css";
+@import "~react-pro-sidebar/dist/scss/styles.scss";
+
+body {
+  font-family: skia;
+  font-size: $font-16;
+  // color: $light-gray;
+  background-color: #111e33;
+}
+.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium {
+  color: #b59b41 !important;
+}
+.MuiInput-input.MuiInputBase-input {
+  color: gray;
+}
+.black .MuiInput-input.MuiInputBase-input {
+  color: black;
+}
