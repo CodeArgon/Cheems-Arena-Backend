@@ -46,7 +46,7 @@ User.init(
     walletAddress: {
       type: DataTypes.TEXT,
     },
-    profilePicture: {
+    profileImg: {
       type: DataTypes.TEXT,
     },
   },

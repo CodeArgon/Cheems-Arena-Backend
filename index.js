@@ -69,6 +69,13 @@ app.post(
   uploadFile.single("profileImg"),
   authController.updateProfile
 );
+
+app.post(
+  "/api/v1/update-profile-picture",
+  authJwt,
+  uploadFile.single("profileImg"),
+  authController.updateProfilePicture
+);
 app.use(globalError);
 
 app.use(`${process.env.URL_PREFIX}/deck`, deckRoutes);

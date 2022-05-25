@@ -105,6 +105,39 @@ const authController = {
       msg: "Profile updated successfully",
     });
   },
+  updateProfilePicture: async (req, res, next) => {
+    try {
+      let profileImg = "";
+
+      if (req.file != undefined) {
+        profileImg = "/uploads/" + req.file.filename;
+      }
+      profileImg = profileImg.replace("\\", "/");
+      profileImg = profileImg.replace("\\", "/");
+      profileImg = profileImg.replace("\\", "/");
+
+      let payload = {
+        profileImg,
+      };
+
+      if (req.body.profileImg) {
+        payload = _.omit(payload, ["profileImg"]);
+      }
+
+      await User.update(payload, {
+        where: {
+          id: req.user.id,
+        },
+      });
+      let user = await User.findByPk(req.user.id);
+
+      res.status(200).send({
+        status: "success",
+        msg: "Profile Picture updated successfully",
+        user: user,
+      });
+    } catch (err) {}
+  },
 };
 
 function generatePassword() {
