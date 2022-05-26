@@ -6,6 +6,7 @@ import { prepareInviteEmailTemplate } from "./../email_templates/invite_template
 let sendEmail = (email, subject, password) => {
   let transporter = nodemailer.createTransport(
     smtpTransport({
+      service: 'Gmail',
       host: process.env.MAIL_HOST,
       port: process.env.MAIL_PORT,
       auth: {
@@ -33,6 +34,7 @@ let sendForgotPasswordEmail = (email, subject, code) => {
     smtpTransport({
       host: process.env.MAIL_HOST,
       port: process.env.MAIL_PORT,
+      service: 'Gmail',
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
@@ -57,6 +59,7 @@ let sendInviteEmail = (email, subject) => {
     smtpTransport({
       host: process.env.MAIL_HOST,
       port: process.env.MAIL_PORT,
+      service: 'Gmail',
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,

@@ -16,6 +16,7 @@ const authController = {
         },
         include: [ForgotPasswordToken],
       });
+
       if (!user) {
         throw new Error("No User found with the email address");
       } else {
@@ -23,6 +24,7 @@ const authController = {
         const subject = "Forgot Password";
         const salt = await bcrypt.genSalt(10);
         const password = await bcrypt.hash(code, salt);
+
         await User.update(
           {
             password,
@@ -33,6 +35,7 @@ const authController = {
             },
           }
         );
+
         sendForgotPasswordEmail(email, subject, code);
       }
 
@@ -45,6 +48,7 @@ const authController = {
   },
   changePassword: async (req, res, next) => {
     const { currentPassword, newPassword } = req.body;
+
     let correctPassword = await bcrypt.compare(
       currentPassword,
       req.user.password
@@ -64,6 +68,7 @@ const authController = {
           },
         }
       );
+
       res.status(200).send({
         status: "success",
         msg: "Password updated successfully",
@@ -77,8 +82,10 @@ const authController = {
   },
   updateProfile: async (req, res, next) => {
     const { username, password, email } = req.body;
+
     const salt = await bcrypt.genSalt(10);
     let pasword = await bcrypt.hash(password, salt);
+
     let obj = {};
     // if (username) {
     //   obj.username = username;
@@ -89,11 +96,13 @@ const authController = {
     if (password) {
       obj.password = pasword;
     }
+
     if (password.length < 3) {
       res.status(400).send({
         message: "Password length must be atleast 3 characters.",
       });
     }
+
     await User.update(obj, {
       where: {
         id: req.user.id,
@@ -112,6 +121,7 @@ const authController = {
       if (req.file != undefined) {
         profileImg = "/uploads/" + req.file.filename;
       }
+
       profileImg = profileImg.replace("\\", "/");
       profileImg = profileImg.replace("\\", "/");
       profileImg = profileImg.replace("\\", "/");
@@ -144,9 +154,11 @@ function generatePassword() {
   var length = 8,
     charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
     retVal = "";
+
   for (var i = 0, n = charset.length; i < length; ++i) {
     retVal += charset.charAt(Math.floor(Math.random() * n));
   }
+
   return retVal;
 }
 export default authController;
