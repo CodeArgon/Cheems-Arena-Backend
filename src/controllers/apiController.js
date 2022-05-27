@@ -17,7 +17,7 @@ const apiController = {
         if (!user) {
             res.status(400).send({
                 "code": 400,
-                "error": "Username doesn't exist"
+                "error": "Username or password are incorrect"
             })
         } else {
             let pubKey = user.walletAddress
