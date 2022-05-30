@@ -184,6 +184,45 @@ const cardController = {
       }
     } catch (error) {}
   },
+  getSpecificCardFromDeck: async (req, res, next) => {
+    try {
+      let {
+        params: { deckId, cardModelId },
+        user: { id: userId },
+      } = req;
+
+      let deck = await Deck.findOne({
+        where: { id: deckId },
+      });
+      deckId = parseInt(deckId);
+      if (deck.userId !== userId) {
+        res.status(400).send({
+          message: "You do not hold this deck",
+        });
+      } else {
+        let cardExists = await DeckCardModel.findOne({
+          where: {
+            deckId: deckId,
+            cardModelId: cardModelId,
+            userId: userId,
+          },
+          include: [{ model: CardModel }],
+        });
+        if (!cardExists) {
+          res.status(400).send({
+            message: "This card does not exist in the deck.",
+          });
+        } else {
+          res.status(status.OK).json({
+            status: "success",
+            card: cardExists,
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 export default cardController;

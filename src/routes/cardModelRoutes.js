@@ -35,7 +35,12 @@ cardModelRoutes
 cardModelRoutes
   .route("/getAllCardModelOfDeck/:deckId")
   .get(authJwt, cardController.getAllCardModelOfDeck);
+
 cardModelRoutes
   .route("/:cardModelId/deleteCardModelOfDeck/:deckId")
   .delete(authJwt, cardController.deleteCardFromDeck);
+
+cardModelRoutes
+  .route("/:cardModelId/get/:deckId")
+  .get(authJwt, cardController.getSpecificCardFromDeck);
 import { authJwt } from "../middlewares/authJwt.js";
