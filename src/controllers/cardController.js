@@ -114,7 +114,7 @@ const cardController = {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   },
 };
