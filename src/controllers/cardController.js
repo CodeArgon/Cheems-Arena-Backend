@@ -117,6 +117,73 @@ const cardController = {
       console.log(error);
     }
   },
+  getAllCardModelOfDeck: async (req, res, next) => {
+    try {
+      let {
+        params: { deckId },
+        user: { id: userId },
+      } = req;
+
+      let deckWithCards = await Deck.findOne({
+        where: { id: deckId },
+        include: [
+          {
+            model: DeckCardModel,
+            include: [{ model: CardModel }],
+          },
+        ],
+      });
+
+      res.status(status.OK).json({
+        status: "success",
+        deck: deckWithCards,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  deleteCardFromDeck: async (req, res, next) => {
+    try {
+      let {
+        params: { deckId, cardModelId },
+        user: { id: userId },
+      } = req;
+
+      let deck = await Deck.findOne({
+        where: { id: deckId },
+      });
+      deckId = parseInt(deckId);
+      if (deck.userId !== userId) {
+        res.status(400).send({
+          message: "You do not hold this deck",
+        });
+      } else {
+        let cardExists = await DeckCardModel.findOne({
+          where: {
+            deckId: deckId,
+            cardModelId: cardModelId,
+            userId: userId,
+          },
+        });
+        if (!cardExists) {
+          res.status(400).send({
+            message: "This card does not exist in the deck.",
+          });
+        } else {
+          await DeckCardModel.destroy({
+            where: {
+              deckId: deckId,
+              cardModelId: cardModelId,
+              userId: userId,
+            },
+          });
+        }
+        res.status(status.OK).json({
+          status: "success",
+        });
+      }
+    } catch (error) {}
+  },
 };
 
 export default cardController;

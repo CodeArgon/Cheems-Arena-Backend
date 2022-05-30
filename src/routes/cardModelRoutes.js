@@ -26,5 +26,16 @@ cardModelRoutes
 
 cardModelRoutes
   .route("/addCardModelToDeck/:deckId")
-  .post(authJwt, uploadFile.single("profileImg"), cardController.addCardModelToDeck);
+  .post(
+    authJwt,
+    uploadFile.single("profileImg"),
+    cardController.addCardModelToDeck
+  );
+
+cardModelRoutes
+  .route("/getAllCardModelOfDeck/:deckId")
+  .get(authJwt, cardController.getAllCardModelOfDeck);
+cardModelRoutes
+  .route("/:cardModelId/deleteCardModelOfDeck/:deckId")
+  .delete(authJwt, cardController.deleteCardFromDeck);
 import { authJwt } from "../middlewares/authJwt.js";
