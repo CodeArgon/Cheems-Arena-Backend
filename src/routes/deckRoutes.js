@@ -25,7 +25,7 @@ deckRouter
   .route("/create")
   .post(authJwt, uploadFile.single("profileImg"), deckController.createDeck);
 
-  // get all the decks
+// get all the decks
 
 deckRouter.route("/get-all").get(authJwt, deckController.getAllDecks);
 
@@ -59,5 +59,4 @@ deckRouter
   .route("/:deckId/card/:cardId")
   .get(authJwt, deckController.getCardById);
 
-// CARD MODEL DECK ROUTES //
 export default deckRouter;
