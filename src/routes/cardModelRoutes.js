@@ -23,4 +23,8 @@ export default cardModelRoutes;
 cardModelRoutes
   .route("/create-card")
   .post(authJwt, uploadFile.single("profileImg"), cardController.createCard);
+
+cardModelRoutes
+  .route("/addCardModelToDeck/:deckId")
+  .post(authJwt, uploadFile.single("profileImg"), cardController.addCardModelToDeck);
 import { authJwt } from "../middlewares/authJwt.js";
