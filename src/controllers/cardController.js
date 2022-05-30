@@ -21,22 +21,34 @@ const cardController = {
         },
       } = req;
 
-      let card = await CardModel.create({
-        userId: userId,
-        name: name,
-        description: description,
-        mana,
-        faction,
-        rarity,
-        life,
-        strength,
-        power,
+      let cardAlreadyExists = await CardModel.findOne({
+        where: {
+          name: name,
+        },
       });
 
-      res.status(status.CREATED).json({
-        status: "success",
-        card: card,
-      });
+      if (cardAlreadyExists) {
+        res.status(400).send({
+          message: "This card already exists",
+        });
+      } else {
+        let card = await CardModel.create({
+          userId: userId,
+          name: name,
+          description: description,
+          mana,
+          faction,
+          rarity,
+          life,
+          strength,
+          power,
+        });
+
+        res.status(status.CREATED).json({
+          status: "success",
+          card: card,
+        });
+      }
     } catch (err) {}
   },
   addCardModelToDeck: async (req, res, next) => {
