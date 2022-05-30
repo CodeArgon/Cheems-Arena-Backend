@@ -1,6 +1,6 @@
+import { Deck } from "./decks.js";
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
-import { Deck } from "./decks.js";
 import { CardModel } from "./cardModels.js";
 import { User } from "./users.js";
 
@@ -27,4 +27,11 @@ DeckCardModel.belongsTo(CardModel, {
 DeckCardModel.belongsTo(User, {
   onDelete: "CASCADE",
   foreignKey: "userId",
+});
+
+Deck.hasMany(DeckCardModel, {
+  foreignKey: {
+    name: "deckId",
+    allowNull: false,
+  },
 });

@@ -62,6 +62,7 @@ const cardController = {
       let deck = await Deck.findOne({
         where: { id: deckId },
       });
+      deckId = parseInt(deckId);
 
       if (deck.userId !== userId) {
         res.status(400).send({
@@ -112,7 +113,9 @@ const cardController = {
           }
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   },
 };
 
