@@ -3,6 +3,7 @@ import { Deck } from "../models/decks.js";
 import { DeckCard } from "../models/deckCards.js";
 import { CardModel } from "../models/cardModels.js";
 import { DeckCardModel } from "../models/deckCardModels.js";
+import _ from "lodash";
 
 const cardController = {
   createCard: async (req, res, next) => {
@@ -221,6 +222,33 @@ const cardController = {
       }
     } catch (error) {
       console.log(error);
+    }
+  },
+  getFourRadomCardModelOfDeck: async (req, res, next) => {
+    try {
+      let {
+        params: { deckId },
+        user: { id: userId },
+      } = req;
+
+      let deckWithCards = await Deck.findOne({
+        where: { id: deckId },
+        include: [
+          {
+            model: DeckCardModel,
+            include: [{ model: CardModel }],
+          },
+        ],
+      });
+
+      const randomFourCards = _.sampleSize(deckWithCards.DeckCardModels, 4);
+
+      res.status(status.OK).json({
+        status: "success",
+        deck: randomFourCards,
+      });
+    } catch (err) {
+      console.log(err);
     }
   },
 };

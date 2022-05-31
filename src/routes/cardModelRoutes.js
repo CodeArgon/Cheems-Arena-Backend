@@ -36,6 +36,10 @@ cardModelRoutes
   .route("/getAllCardModelOfDeck/:deckId")
   .get(authJwt, cardController.getAllCardModelOfDeck);
 
+  cardModelRoutes
+  .route("/getFourRadomCardModelOfDeck/:deckId")
+  .get(authJwt, cardController.getFourRadomCardModelOfDeck);
+
 cardModelRoutes
   .route("/:cardModelId/deleteCardModelOfDeck/:deckId")
   .delete(authJwt, cardController.deleteCardFromDeck);
