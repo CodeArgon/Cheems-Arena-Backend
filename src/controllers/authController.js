@@ -2,6 +2,7 @@ import status from "http-status";
 import { sendForgotPasswordEmail } from "../utils/sendEmail.js";
 import { ForgotPasswordToken } from "../models/forgotPasswordToken.js";
 import { User } from "../models/users.js";
+import { God } from "../models/gods.js";
 import bcrypt from "bcryptjs";
 import APIError from "../utils/APIError.js";
 
@@ -147,6 +148,17 @@ const authController = {
         user: user,
       });
     } catch (err) {}
+  },
+  getListOfGods: async (req, res, next) => {
+    try {
+      let gods = await God.findAll({});
+      res.status(200).send({
+        status: "success",
+        gods: gods,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   },
 };
 

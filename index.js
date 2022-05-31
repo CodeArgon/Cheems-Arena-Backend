@@ -78,6 +78,8 @@ app.post(
   uploadFile.single("profileImg"),
   authController.updateProfilePicture
 );
+
+app.get("/api/v1/gods", authController.getListOfGods);
 app.use(globalError);
 
 app.use(`${process.env.URL_PREFIX}/deck`, deckRoutes);

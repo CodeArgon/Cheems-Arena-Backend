@@ -7,6 +7,7 @@ import { Deck } from "../models/decks.js";
 import { DeckCard } from "../models/deckCards.js";
 import { CardModel } from "../models/cardModels.js";
 import { DeckCardModel } from "../models/deckCardModels.js";
+import { God } from "../models/gods.js";
 
 User.hasOne(ForgotPasswordToken, {
   onDelete: "CASCADE",
