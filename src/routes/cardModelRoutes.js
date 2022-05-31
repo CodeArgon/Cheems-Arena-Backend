@@ -20,10 +20,13 @@ const cardModelRoutes = express.Router();
 
 export default cardModelRoutes;
 
+// create a new card
+
 cardModelRoutes
   .route("/create-card")
   .post(authJwt, uploadFile.single("profileImg"), cardController.createCard);
 
+// add card to the deck
 cardModelRoutes
   .route("/addCardModelToDeck/:deckId")
   .post(
@@ -32,18 +35,22 @@ cardModelRoutes
     cardController.addCardModelToDeck
   );
 
+//get all cards from the deck
 cardModelRoutes
   .route("/getAllCardModelOfDeck/:deckId")
   .get(authJwt, cardController.getAllCardModelOfDeck);
 
-  cardModelRoutes
+//get four cards from the deck
+cardModelRoutes
   .route("/getFourRadomCardModelOfDeck/:deckId")
   .get(authJwt, cardController.getFourRadomCardModelOfDeck);
 
+//remove card from the deck
 cardModelRoutes
   .route("/:cardModelId/deleteCardModelOfDeck/:deckId")
   .delete(authJwt, cardController.deleteCardFromDeck);
 
+//get a specific card from the deck
 cardModelRoutes
   .route("/:cardModelId/get/:deckId")
   .get(authJwt, cardController.getSpecificCardFromDeck);
