@@ -87,6 +87,7 @@ const cardController = {
               cardModelId: cardModelId,
             },
           });
+
           if (cardExists) {
             res.status(400).send({
               message: "This card already exists in the deck.",
@@ -153,6 +154,7 @@ const cardController = {
       let deck = await Deck.findOne({
         where: { id: deckId },
       });
+
       deckId = parseInt(deckId);
       if (deck.userId !== userId) {
         res.status(400).send({
@@ -166,6 +168,7 @@ const cardController = {
             userId: userId,
           },
         });
+
         if (!cardExists) {
           res.status(400).send({
             message: "This card does not exist in the deck.",
@@ -195,6 +198,7 @@ const cardController = {
       let deck = await Deck.findOne({
         where: { id: deckId },
       });
+
       deckId = parseInt(deckId);
       if (deck.userId !== userId) {
         res.status(400).send({
@@ -209,6 +213,7 @@ const cardController = {
           },
           include: [{ model: CardModel }],
         });
+
         if (!cardExists) {
           res.status(400).send({
             message: "This card does not exist in the deck.",

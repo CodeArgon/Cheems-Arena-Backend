@@ -61,6 +61,7 @@ const deckController = {
         res.status(400).send({
           message: "You do not hold this deck",
         });
+
       } else {
         let existingCardsLength = await DeckCard.count({
           where: {
@@ -73,16 +74,19 @@ const deckController = {
             message: "You have reached the total limit of this deck",
           });
         } else {
+
           let cardExists = await DeckCard.findOne({
             where: {
               deckId: deckId,
               name: name,
             },
           });
+
           if (cardExists) {
             res.status(400).send({
               message: "This card already exists in the deck.",
             });
+
           } else {
             await DeckCard.create({
               userId: userId,
@@ -204,6 +208,7 @@ const deckController = {
           userId: userId,
         },
       });
+      
       res.status(200).json({
         status: "success",
         decks: decks,
