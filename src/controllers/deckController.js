@@ -157,6 +157,7 @@ const deckController = {
         res.status(400).send({
           message: "Card not found in the deck",
         });
+
       } else {
         await DeckCard.destroy({
           where: {
@@ -189,6 +190,7 @@ const deckController = {
         res.status(400).send({
           message: "Card not found in the deck",
         });
+        
       } else {
         res.status(200).json({
           status: "success",

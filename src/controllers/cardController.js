@@ -8,6 +8,7 @@ import _ from "lodash";
 const cardController = {
   createCard: async (req, res, next) => {
     try {
+
       let {
         user: { id: userId },
         body: {
@@ -32,6 +33,7 @@ const cardController = {
         res.status(400).send({
           message: "This card already exists",
         });
+        
       } else {
         let card = await CardModel.create({
           userId: userId,
@@ -63,12 +65,14 @@ const cardController = {
       let deck = await Deck.findOne({
         where: { id: deckId },
       });
+
       deckId = parseInt(deckId);
 
       if (deck.userId !== userId) {
         res.status(400).send({
           message: "You do not hold this deck",
         });
+
       } else {
         let existingCardsLength = await DeckCardModel.count({
           where: {
@@ -80,6 +84,7 @@ const cardController = {
           res.status(400).send({
             message: "You have reached the total limit of this deck",
           });
+
         } else {
           let cardExists = await DeckCardModel.findOne({
             where: {
@@ -92,6 +97,7 @@ const cardController = {
             res.status(400).send({
               message: "This card already exists in the deck.",
             });
+
           } else {
             await DeckCardModel.create({
               userId: userId,
@@ -160,6 +166,7 @@ const cardController = {
         res.status(400).send({
           message: "You do not hold this deck",
         });
+
       } else {
         let cardExists = await DeckCardModel.findOne({
           where: {
@@ -173,6 +180,7 @@ const cardController = {
           res.status(400).send({
             message: "This card does not exist in the deck.",
           });
+          
         } else {
           await DeckCardModel.destroy({
             where: {
@@ -204,6 +212,7 @@ const cardController = {
         res.status(400).send({
           message: "You do not hold this deck",
         });
+
       } else {
         let cardExists = await DeckCardModel.findOne({
           where: {
@@ -258,11 +267,13 @@ const cardController = {
   },
   getAllCardsFromDatabase: async (req, res, next) => {
     try {
-      let cards = await CardModel.findAll()
+      let cards = await CardModel.findAll();
+
       var obj_arr_appended = cards.map(function (currentValue, Index) {
         currentValue.dataValues.INDEX = Index + 1
         return currentValue
       })
+
       res.status(status.OK).json({
         status: "success",
         cards: obj_arr_appended,

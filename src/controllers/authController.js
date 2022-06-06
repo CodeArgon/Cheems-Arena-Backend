@@ -20,6 +20,7 @@ const authController = {
 
       if (!user) {
         throw new Error("No User found with the email address");
+        
       } else {
         let code = generatePassword();
         const subject = "Forgot Password";
