@@ -50,7 +50,7 @@ const cardController = {
           card: card,
         });
       }
-    } catch (err) {}
+    } catch (err) { }
   },
   addCardModelToDeck: async (req, res, next) => {
     try {
@@ -186,7 +186,7 @@ const cardController = {
           status: "success",
         });
       }
-    } catch (error) {}
+    } catch (error) { }
   },
   getSpecificCardFromDeck: async (req, res, next) => {
     try {
@@ -256,6 +256,21 @@ const cardController = {
       console.log(err);
     }
   },
+  getAllCardsFromDatabase: async (req, res, next) => {
+    try {
+      let cards = await CardModel.findAll()
+      var obj_arr_appended = cards.map(function (currentValue, Index) {
+        currentValue.dataValues.INDEX = Index + 1
+        return currentValue
+      })
+      res.status(status.OK).json({
+        status: "success",
+        cards: obj_arr_appended,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 };
 
 export default cardController;
