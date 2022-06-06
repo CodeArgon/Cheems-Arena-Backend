@@ -13,6 +13,9 @@ CardModel.init(
     cardImage: {
       type: DataTypes.TEXT,
     },
+    cardType: {
+      type: DataTypes.TEXT,
+    },
     description: {
       type: DataTypes.TEXT,
     },
@@ -21,23 +24,23 @@ CardModel.init(
       allowNull: true,
     },
     faction: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     rarity: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     life: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     strength: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     power: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
   },
@@ -47,9 +50,9 @@ CardModel.init(
   }
 );
 
-CardModel.belongsTo(User, {
-  foreignKey: {
-    name: "userId",
-    allowNull: false,
-  },
-});
+// CardModel.belongsTo(User, {
+//   foreignKey: {
+//     name: "userId",
+//     allowNull: false,
+//   },
+// });
