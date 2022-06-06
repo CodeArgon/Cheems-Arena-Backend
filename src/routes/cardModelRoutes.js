@@ -35,6 +35,9 @@ cardModelRoutes
     cardController.addCardModelToDeck
   );
 
+  cardModelRoutes
+  .route("/json")
+  .get(authJwt, cardController.getAllCardsFromJson);
 
 //get all cards from the db
 cardModelRoutes
