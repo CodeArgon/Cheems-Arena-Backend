@@ -44,7 +44,7 @@ const PORT = 5000;
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-app.get("/", (req, res) => {
+app.get("/api/v1/", (req, res) => {
   res.send("Hello world!");
 });
 
@@ -93,6 +93,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 app.use(
-  "/uploads/",
+  "/api/v1/uploads/",
   express.static(path.join(__dirname, "/src/uploads/userprofile"))
 );
