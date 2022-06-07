@@ -3,6 +3,7 @@ import con from '../config/db.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { User } from "../models/users.js";
+import { CardModel } from "../models/cardModels.js";
 
 const apiController = {
     getTokens: async (req, res) => {
@@ -40,8 +41,41 @@ const apiController = {
                     { expiresIn: '1 day' },
                 );
                 // get metadata against public key
-                let metaDataArray = await tokenController.getMetaData(pubKey);
+                // let metaDataArray = await tokenController.getMetaData(pubKey);
+                let cards = await CardModel.findAll();
 
+                let metaDataArray = cards.map(function (currentValue, Index) {
+                  currentValue.dataValues.INDEX = Index + 1
+                  currentValue.dataValues.attributes = [
+                    {
+                      "trait_type": "Mana",
+                      "value": currentValue.dataValues.mana
+                    },
+                    {
+                      "trait_type": "Attack",
+                      "value": currentValue.dataValues.attack
+                    },
+                    {
+                      "trait_type": "Hp",
+                      "value": currentValue.dataValues.hp
+                    },
+                    {
+                      "trait_type": "Specification",
+                      "value": currentValue.dataValues.specification
+                    },
+                    {
+                      "trait_type": "Rarity",
+                      "value": currentValue.dataValues.rarity
+                    }
+                  ]
+                  currentValue.dataValues.collection = {
+                    "name": "Cheems Arena",
+                    "family": "Cheems"
+                  }
+                  currentValue.dataValues.seller_fee_basis_points = 400
+                  return currentValue
+                })
+          
                 let response = {
                   LoginDataRoot: {
                     pubKey,
