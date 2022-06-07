@@ -23,6 +23,10 @@ CardModel.init(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    specification: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     attack: {
       type: DataTypes.INTEGER,
       allowNull: true,
