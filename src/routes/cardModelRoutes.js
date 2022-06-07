@@ -67,6 +67,6 @@ cardModelRoutes
   // delete all cards
   cardModelRoutes
   .route("/delete")
-  .delete(authJwt, cardController.deleteAllCardsFromDatabase);
+  .delete(cardController.deleteAllCardsFromDatabase);
 
 import { authJwt } from "../middlewares/authJwt.js";
