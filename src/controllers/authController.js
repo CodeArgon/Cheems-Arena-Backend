@@ -127,6 +127,7 @@ const authController = {
       profileImg = profileImg.replace("\\", "/");
       profileImg = profileImg.replace("\\", "/");
       profileImg = profileImg.replace("\\", "/");
+      profileImg = '/api/v1' + profileImg
 
       let payload = {
         profileImg,
