@@ -2167,7 +2167,7 @@ let cardsJSON = [
 const createCards = async () => {
   await CardModel.bulkCreate(cardsJSON);
 };
-seedDB();
+// seedDB();
 seedCards()
 
 

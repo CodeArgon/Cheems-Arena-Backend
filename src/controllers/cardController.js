@@ -271,6 +271,33 @@ const cardController = {
 
       var obj_arr_appended = cards.map(function (currentValue, Index) {
         currentValue.dataValues.INDEX = Index + 1
+        currentValue.dataValues.attributes = [
+          {
+            "trait_type": "Mana",
+            "value": currentValue.dataValues.mana
+          },
+          {
+            "trait_type": "Attack",
+            "value": currentValue.dataValues.attack
+          },
+          {
+            "trait_type": "Hp",
+            "value": currentValue.dataValues.hp
+          },
+          {
+            "trait_type": "Specification",
+            "value": currentValue.dataValues.specification
+          },
+          {
+            "trait_type": "Rarity",
+            "value": currentValue.dataValues.rarity
+          }
+        ]
+        currentValue.dataValues.collection = {
+          "name": "Cheems Arena",
+          "family": "Cheems"
+        }
+        currentValue.dataValues.seller_fee_basis_points = 400
         return currentValue
       })
 
@@ -287,6 +314,18 @@ const cardController = {
       status: "success",
       cards: cardsJSON,
     });
+  },
+  deleteAllCardsFromDatabase: async (req, res, next) => {
+    try {
+      await CardModel.destroy({
+        where: {},
+      })
+      res.status(status.OK).json({
+        status: "success",
+      });
+    } catch (error) {
+      console.log(error)
+    }
   }
 };
 

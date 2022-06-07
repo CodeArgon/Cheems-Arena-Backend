@@ -3,7 +3,7 @@ import sequelize from "../config/db.js";
 import { User } from "./users.js";
 import { Deck } from "./decks.js";
 
-export class CardModel extends Model {}
+export class CardModel extends Model { }
 
 CardModel.init(
   {
@@ -20,6 +20,14 @@ CardModel.init(
       type: DataTypes.TEXT,
     },
     mana: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    attack: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    hp: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
