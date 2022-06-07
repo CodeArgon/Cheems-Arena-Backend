@@ -14,6 +14,8 @@ import "dotenv/config";
 import multer from "multer";
 const app = express();
 import  globalError from "./src/middlewares/globalError.js";
+import path from "path"
+import { dirname } from 'path';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -84,3 +86,13 @@ app.use(globalError);
 
 app.use(`${process.env.URL_PREFIX}/deck`, deckRoutes);
 app.use(`${process.env.URL_PREFIX}/card`, cardModelRoutes);
+
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+app.use(
+  "/uploads/",
+  express.static(path.join(__dirname, "/src/uploads/userprofile"))
+);
