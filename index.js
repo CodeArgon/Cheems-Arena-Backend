@@ -81,6 +81,11 @@ app.post(
   authController.updateProfilePicture
 );
 
+app.get(
+  "/api/v1/user",
+  authJwt,
+  authController.getUser
+);
 app.get("/api/v1/gods", authController.getListOfGods);
 app.use(globalError);
 

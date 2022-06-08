@@ -20,8 +20,9 @@ const authController = {
 
       if (!user) {
         throw new Error("No User found with the email address");
-        
+
       } else {
+
         let code = generatePassword();
         const subject = "Forgot Password";
         const salt = await bcrypt.genSalt(10);
@@ -149,11 +150,12 @@ const authController = {
         msg: "Profile Picture updated successfully",
         user: user,
       });
-    } catch (err) {}
+    } catch (err) { }
   },
   getListOfGods: async (req, res, next) => {
     try {
       let gods = await God.findAll({});
+
       res.status(200).send({
         status: "success",
         gods: gods,
@@ -162,6 +164,18 @@ const authController = {
       console.log(err);
     }
   },
+  getUser: async (req, res, next) => {
+    try {
+      let user = await User.findByPk(req.user.id);
+
+      res.status(200).send({
+        status: "success",
+        user: user,
+      });
+    } catch (err) {
+
+    }
+  }
 };
 
 function generatePassword() {
