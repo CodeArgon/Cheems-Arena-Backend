@@ -50,19 +50,22 @@ const apiController = {
         let metaDataArray = cards.map(function (currentValue, Index) {
 
           currentValue.dataValues.INDEX = Index + 1
+          let manValue = currentValue.dataValues.mana ? currentValue.dataValues.mana.toString() : currentValue.dataValues.mana;
+          let attackValue = currentValue.dataValues.attack ? currentValue.dataValues.attack.toString() : currentValue.dataValues.attack;
+          let hpValue = currentValue.dataValues.hp ? currentValue.dataValues.hp.toString() : currentValue.dataValues.hp
 
           currentValue.dataValues.attributes = [
             {
               "trait_type": "Mana",
-              "value": currentValue.dataValues.mana.toString()
+              "value": manValue
             },
             {
               "trait_type": "Attack",
-              "value": currentValue.dataValues.attack.toString()
+              "value": attackValue
             },
             {
               "trait_type": "Hp",
-              "value": currentValue.dataValues.hp.toString()
+              "value": hpValue
             },
             {
               "trait_type": "Specification",
@@ -78,7 +81,7 @@ const apiController = {
             "name": "Cheems Arena",
             "family": "Cheems"
           }
-          
+
           currentValue.dataValues.seller_fee_basis_points = 400
           return currentValue
         })
