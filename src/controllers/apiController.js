@@ -74,6 +74,10 @@ const apiController = {
             {
               "trait_type": "Rarity",
               "value": currentValue.dataValues.rarity
+            },
+            {
+              "trait_type": "Faction",
+              "value": currentValue.dataValues.faction
             }
           ]
 
