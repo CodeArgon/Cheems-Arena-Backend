@@ -54,15 +54,15 @@ const apiController = {
           currentValue.dataValues.attributes = [
             {
               "trait_type": "Mana",
-              "value": currentValue.dataValues.mana
+              "value": currentValue.dataValues.mana.toString()
             },
             {
               "trait_type": "Attack",
-              "value": currentValue.dataValues.attack
+              "value": currentValue.dataValues.attack.toString()
             },
             {
               "trait_type": "Hp",
-              "value": currentValue.dataValues.hp
+              "value": currentValue.dataValues.hp.toString()
             },
             {
               "trait_type": "Specification",
