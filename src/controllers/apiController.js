@@ -87,19 +87,19 @@ const apiController = {
           }
 
           currentValue.dataValues.seller_fee_basis_points = 400
-          delete currentValue['mana'];
-          delete currentValue['specification'];
-          delete currentValue['attack'];
-          delete currentValue['hp'];
-          delete currentValue['faction'];
-          delete currentValue['rarity'];
-          delete currentValue['life'];
-          delete currentValue['strength'];
-          delete currentValue['power'];
-          delete currentValue['updatedAt'];
-          delete currentValue['createdAt'];
-          delete currentValue['INDEX'];
-          delete currentValue['id'];
+          delete currentValue.dataValues['mana'];
+          delete currentValue.dataValues['specification'];
+          delete currentValue.dataValues['attack'];
+          delete currentValue.dataValues['hp'];
+          delete currentValue.dataValues['faction'];
+          delete currentValue.dataValues['rarity'];
+          delete currentValue.dataValues['life'];
+          delete currentValue.dataValues['strength'];
+          delete currentValue.dataValues['power'];
+          delete currentValue.dataValues['updatedAt'];
+          delete currentValue.dataValues['createdAt'];
+          delete currentValue.dataValues['INDEX'];
+          delete currentValue.dataValues['id'];
 
           return currentValue
         })
