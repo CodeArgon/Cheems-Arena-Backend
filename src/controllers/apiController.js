@@ -54,7 +54,7 @@ const apiController = {
           let attackValue = currentValue.dataValues.attack ? currentValue.dataValues.attack.toString() : currentValue.dataValues.attack;
           let hpValue = currentValue.dataValues.hp ? currentValue.dataValues.hp.toString() : currentValue.dataValues.hp
 
-          currentValue.dataValues.attributes = [
+          currentValue.dataValues.cardProps = [
             {
               "trait_type": "Mana",
               "value": manValue

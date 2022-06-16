@@ -271,7 +271,8 @@ const cardController = {
 
       var obj_arr_appended = cards.map(function (currentValue, Index) {
         currentValue.dataValues.INDEX = Index + 1
-        currentValue.dataValues.attributes = [
+
+        currentValue.dataValues.cardProps = [
           {
             "trait_type": "Mana",
             "value": currentValue.dataValues.mana
@@ -293,12 +294,15 @@ const cardController = {
             "value": currentValue.dataValues.rarity
           }
         ]
+
         currentValue.dataValues.collection = {
           "name": "Cheems Arena",
           "family": "Cheems"
         }
+
         currentValue.dataValues.seller_fee_basis_points = 400
         return currentValue
+
       })
 
       res.status(status.OK).json({
@@ -317,9 +321,11 @@ const cardController = {
   },
   deleteAllCardsFromDatabase: async (req, res, next) => {
     try {
+
       await CardModel.destroy({
         where: {},
       })
+      
       res.status(status.OK).json({
         status: "success",
       });
