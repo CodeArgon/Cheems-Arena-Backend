@@ -55,7 +55,7 @@ app.post(
   apiController.getTokens
 );
 
-app.get(
+app.post(
   "/api/v1/carddata",
   apiController.carddata
 );
