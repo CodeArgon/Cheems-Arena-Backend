@@ -127,6 +127,9 @@ const apiController = {
       }
     }
 
+  },
+  carddata: async (req,res) => {
+    res.json(cardLibraryJSON);
   }
 }
 

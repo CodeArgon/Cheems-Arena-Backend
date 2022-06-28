@@ -54,6 +54,11 @@ app.post(
   uploadFile.single("profileImg"),
   apiController.getTokens
 );
+
+app.get(
+  "/api/v1/carddata",
+  apiController.carddata
+);
 app.post(
   "/api/v1/forgot-password",
   uploadFile.single("profileImg"),
