@@ -35,7 +35,7 @@ cardModelRoutes
     cardController.addCardModelToDeck
   );
 
-  cardModelRoutes
+cardModelRoutes
   .route("/json")
   .get(authJwt, cardController.getAllCardsFromJson);
 
@@ -64,8 +64,8 @@ cardModelRoutes
   .route("/:cardModelId/get/:deckId")
   .get(authJwt, cardController.getSpecificCardFromDeck);
 
-  // delete all cards
-  cardModelRoutes
+// delete all cards
+cardModelRoutes
   .route("/delete")
   .delete(cardController.deleteAllCardsFromDatabase);
 

@@ -99,6 +99,7 @@ const createGods = async () => {
 
   await God.bulkCreate(gods_list);
 };
+
 const seedDB = async () => {
   try {
     await createMintList();
@@ -108,6 +109,7 @@ const seedDB = async () => {
     console.log("There is some error in seeding database", error);
   }
 };
+
 const seedCards = async () => {
   try {
     await createCards();
@@ -115,6 +117,7 @@ const seedCards = async () => {
     console.log("There is some error in seeding database", error);
   }
 };
+
 let cardsJSON = [
   {
     name: "Ponzi King",
@@ -2167,7 +2170,9 @@ let cardsJSON = [
 const createCards = async () => {
   await CardModel.bulkCreate(cardsJSON);
 };
-// seedDB();
+
+
+seedDB();
 seedCards()
 
 

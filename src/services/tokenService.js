@@ -30,13 +30,16 @@ const tokenService = {
     );
     return accounts;
   },
+
   getTokenData: async (connection, token) => {
     try {
       if (token && token.mint) {
         let mintPubkey = new PublicKey(token.mint);
         let tokenmetaPubkey = await Metadata.getPDA(mintPubkey);
+
         let tokenData = await Metadata.load(connection, tokenmetaPubkey);
         const addresses = await MintList.findAll();
+
         for (let i = 1; i < addresses.length; i++) {
           if (addresses[i].mint === tokenData.data.mint) {
             return tokenData;
@@ -47,6 +50,7 @@ const tokenService = {
       console.log(error);
     }
   },
+
   getMetaData: async (tokenData) => {
     let metaData = {};
     if (tokenData) {
